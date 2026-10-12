@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#29130e">
+<title>Happy 10th Birthday, Ethan! 🍫</title>
+<style>
+:root{
+  --cream:#fff0cc;
+  --gold:#ffd68d;
+  --ink:#1c1115;
+  --space:clamp(14px,3vh,28px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--ink)}
+body{
+  margin:0;
+  min-height:100svh;
+  background:radial-gradient(ellipse at 50% 55%,#673a2b 0%,#321b19 50%,var(--ink) 100%) fixed;
+  color:var(--cream);
+  font-family:Georgia,'Times New Roman',serif;
+  overflow-x:hidden;
+}
+
+/* One centred column. Everything inside flows; nothing is pinned with magic numbers. */
+.scene{
+  position:relative;
+  min-height:100svh;
+  display:grid;
+  place-items:center;
+  padding:clamp(24px,5vh,56px) 16px;
+  overflow:hidden;
+  isolation:isolate;
+}
+.scene::before{
+  content:"";
+  position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(circle at 50% 62%,#fbb96f20,transparent 45%);
+}
+.content{
+  position:relative;z-index:2;
+  width:min(100%,660px);
+  display:flex;flex-direction:column;align-items:center;
+  gap:var(--space);
+  text-align:center;
+  animation:arrive 1s ease both;
+}
+
+.eyebrow{
+  margin:0;
+  font:600 clamp(15px,2.6vw,18px)/1.4 system-ui,sans-serif;
+  letter-spacing:.06em;
+  color:#f8cb83;
+  animation:fadeDown 1.1s ease both;
+}
+h1{
+  margin:0;
+  font-size:clamp(2.5rem,9vw,4.4rem);
+  font-weight:400;
+  line-height:1.08;
+  letter-spacing:-.02em;
+  text-wrap:balance;
+  color:#fff1cf;
+  text-shadow:0 3px 0 #6c3627,0 0 27px #ffcd8550;
+  animation:fadeDown 1.2s ease both,glimmer 3.5s ease-in-out 1.3s infinite alternate;
+}
+.from{
+  margin:0;
+  font:600 clamp(15px,3vw,19px)/1.4 system-ui,sans-serif;
+  letter-spacing:.06em;
+  color:#ffdda7;
+  animation:fadeUp 1.2s ease 1.1s both;
+}
+
+/* ---------- Cake ----------
+   Built as a vertical stack (candles > upper tier > lower tier > plate).
+   Every measurement is in em, so the whole cake scales from one font-size. */
+.cake-wrap{
+  font-size:min(16px,4.3vw);
+  display:flex;flex-direction:column;align-items:center;
+  padding-top:2.6em;               /* headroom for flames + glow */
+  filter:drop-shadow(0 1.2em 1.4em #10070890);
+  animation:cakeIn 1.5s cubic-bezier(.2,1.2,.3,1) .3s both;
+}
+.cake{
+  display:flex;flex-direction:column;align-items:center;
+  cursor:pointer;
+  touch-action:manipulation;
+  animation:float 4s ease-in-out 2s infinite;
+  -webkit-tap-highlight-color:transparent;
+}
+.cake:focus-visible{outline:2px solid var(--gold);outline-offset:.8em;border-radius:1em}
+
+.candles{
+  position:relative;z-index:3;
+  display:flex;align-items:flex-end;gap:1.5em;
+  margin-bottom:-1em;              /* plants the candles into the frosting */
+}
+.candle{
+  position:relative;
+  width:.95em;height:3.2em;
+  border-radius:.2em .2em .1em .1em;
+  background:repeating-linear-gradient(145deg,#f9e3b6 0 .45em,#c66b47 .45em .85em);
+  box-shadow:inset -.2em 0 .2em #45190a55;
+}
+.candle:nth-child(2){height:4em;background:repeating-linear-gradient(145deg,#f9e3b6 0 .45em,#eaa54f .45em .85em)}
+.candle:nth-child(3){background:repeating-linear-gradient(145deg,#f9e3b6 0 .45em,#dc7a61 .45em .85em)}
+.wick{position:absolute;left:50%;bottom:100%;width:.13em;height:.6em;margin-left:-.065em;background:#38211a}
+.flame{
+  position:absolute;left:50%;bottom:calc(100% + .4em);
+  width:.95em;height:1.5em;margin-left:-.475em;
+  border-radius:80% 0 65% 60%;
+  background:radial-gradient(circle at 48% 68%,#fffce1 0 18%,#ffd871 33%,#fd9940 68%,#fa562c 100%);
+  box-shadow:0 0 1.1em .45em #ffbd5b70;
+  transform:rotate(45deg);transform-origin:bottom center;
+  animation:flicker .8s ease-in-out infinite alternate;
+}
+.candle:nth-child(2) .flame{animation-delay:-.3s}
+.candle:nth-child(3) .flame{animation-delay:-.55s}
+
+.tier{
+  position:relative;
+  border-radius:1em 1em 1.5em 1.5em;
+  box-shadow:inset -1em 0 1.4em #240d0d3b,inset 0 -.8em 0 #2f140f55;
+}
+/* frosting rim on top of each tier */
+.tier::before{
+  content:"";
+  position:absolute;left:0;right:0;top:-1em;height:2em;z-index:2;
+  border-radius:50%;
+  background:linear-gradient(#b4663f,#5e3025);
+}
+.tier.upper{
+  z-index:2;
+  width:13em;height:6.4em;
+  background:linear-gradient(90deg,#573122,#ba7140 33%,#824124 77%,#51241b);
+}
+.tier.lower{
+  z-index:1;
+  width:17em;height:6.6em;
+  margin-top:-.4em;
+  background:linear-gradient(90deg,#573022,#a85c35 33%,#874025 75%,#4c211b);
+}
+/* Drips begin at the tier's top edge and run underneath the rim (z-index 2),
+   so they appear to grow out of its lower curve in the same chocolate. */
+.drips{position:absolute;inset:0;z-index:1;pointer-events:none}
+.drips i{
+  position:absolute;top:0;width:1.3em;
+  border-radius:0 0 1em 1em;
+  background:#5e3025;
+  box-shadow:inset -.25em 0 .3em #3f1b12;
+}
+.drips i:nth-child(1){left:10%;height:2.6em}
+.drips i:nth-child(2){left:33%;height:1.9em}
+.drips i:nth-child(3){left:58%;height:3em}
+.drips i:nth-child(4){left:80%;height:2.1em}
+
+.sprinkles{
+  position:absolute;inset:3.4em .5em .5em;
+  pointer-events:none;
+  background-image:
+    radial-gradient(circle,#ffd48c 0 .2em,transparent .22em),
+    radial-gradient(circle,#f9aa86 0 .13em,transparent .15em),
+    radial-gradient(circle,#fff0d7 0 .13em,transparent .15em);
+  background-size:3.4em 2em,2.6em 2.3em,3.1em 2.7em;
+  background-position:.7em .3em,.2em 1em,1.2em .6em;
+}
+.tier.lower .sprinkles{
+  -webkit-mask-image:linear-gradient(90deg,#000 0 27%,transparent 27% 73%,#000 73%);
+  mask-image:linear-gradient(90deg,#000 0 27%,transparent 27% 73%,#000 73%);
+}
+.ten{
+  position:absolute;inset:auto 0 0;height:1.357em; /* = 3.8em of the cake, since this element's own font-size is 2.8em */
+  display:grid;place-items:center;
+  font:700 2.8em/1 system-ui,sans-serif;
+  color:#ffe0a2;
+  text-shadow:0 .06em 0 #5f281b,0 0 .3em #fff4bc8f;
+  pointer-events:none;
+}
+
+.plate{
+  position:relative;z-index:0;
+  width:20em;height:2.4em;
+  margin-top:-1.4em;
+  border-radius:50%;
+  background:linear-gradient(#fff1d2 0%,#c89160 64%,#6d402e 100%);
+  box-shadow:0 .4em 0 #673c2a;
+}
+
+/* ---------- Background decoration ---------- */
+.floaters,.sparkles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.floaters span{position:absolute;left:var(--x);bottom:-45px;color:var(--c);font-size:var(--size);opacity:0;animation:rise var(--time) linear var(--delay) infinite}
+.sparkles span{position:absolute;left:var(--x);top:var(--y);color:#f4ce91;font-size:var(--size);animation:twinkle var(--time) ease-in-out var(--delay) infinite alternate}
+
+@keyframes arrive{from{opacity:0}to{opacity:1}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-22px)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes glimmer{from{text-shadow:0 3px 0 #6c3627,0 0 12px #ffcc6633}to{text-shadow:0 3px 0 #6c3627,0 0 31px #ffcd858c}}
+@keyframes cakeIn{from{opacity:0;transform:translateY(95px) scale(.8)}to{opacity:1;transform:none}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes flicker{from{transform:rotate(38deg) scale(.87);opacity:.88}to{transform:rotate(52deg) scale(1.08);opacity:1}}
+@keyframes rise{0%{transform:translate(0,0) rotate(-20deg);opacity:0}12%{opacity:.65}85%{opacity:.65}100%{transform:translate(var(--drift),-115vh) rotate(30deg);opacity:0}}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(.75)}50%{opacity:1;transform:scale(1.2)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main class="scene">
+  <div class="sparkles" aria-hidden="true">
+    <span style="--x:9%;--y:15%;--size:24px;--time:3s;--delay:-1s">✦</span>
+    <span style="--x:82%;--y:12%;--size:17px;--time:4s;--delay:-2s">✧</span>
+    <span style="--x:16%;--y:71%;--size:16px;--time:3.5s;--delay:-.4s">✧</span>
+    <span style="--x:89%;--y:68%;--size:23px;--time:3s;--delay:-1.3s">✦</span>
+    <span style="--x:59%;--y:8%;--size:19px;--time:4.5s;--delay:-3s">✧</span>
+  </div>
+  <div class="floaters" aria-hidden="true" id="floaters"></div>
+
+  <section class="content" aria-label="Birthday greeting for Ethan">
+    <p class="eyebrow">You're 10 today!</p>
+    <h1>Happy Birthday, Ethan!</h1>
+
+    <div class="cake-wrap">
+      <div class="cake" role="button" tabindex="0" aria-label="Chocolate birthday cake with ten on the front and three lit candles. Activate for confetti.">
+        <div class="candles">
+          <div class="candle"><i class="wick"></i><i class="flame"></i></div>
+          <div class="candle"><i class="wick"></i><i class="flame"></i></div>
+          <div class="candle"><i class="wick"></i><i class="flame"></i></div>
+        </div>
+        <div class="tier upper">
+          <div class="drips"><i></i><i></i><i></i><i></i></div>
+          <div class="sprinkles"></div>
+        </div>
+        <div class="tier lower">
+          <div class="drips"><i></i><i></i><i></i><i></i></div>
+          <div class="sprinkles"></div>
+          <div class="ten">10</div>
+        </div>
+        <div class="plate"></div>
+      </div>
+    </div>
+
+    <p class="from">From: Papa Popoy &amp; Family</p>
+  </section>
+</main>
+
+<script>
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const box = document.getElementById('floaters');
+  const glyphs = ['✦', '♥', '✧', '●', '♡'];
+  const tints = ['#f7c27d', '#d89975', '#ffe6b1', '#be8669'];
+  for (let i = 0; i < 24; i++) {
+    const s = document.createElement('span');
+    s.textContent = glyphs[i % glyphs.length];
+    s.style.cssText = `--x:${(i * 37 + 11) % 100}%;--c:${tints[i % 4]};--size:${11 + i % 3 * 6}px;--time:${8 + i % 4 * 2}s;--delay:-${(i * 2.3) % 18}s;--drift:${(i % 7 - 3) * 19}px`;
+    box.appendChild(s);
+  }
+
+  const scene = document.querySelector('.scene');
+  const colors = ['#f5d198', '#b8734b', '#f7a875', '#fff1ca', '#db9460'];
+  function confetti() {
+    for (let i = 0; i < 65; i++) {
+      const p = document.createElement('span');
+      p.style.cssText = `position:absolute;top:-20px;left:${Math.random() * 100}%;width:${4 + Math.random() * 6}px;height:${7 + Math.random() * 9}px;background:${colors[i % 5]};border-radius:2px;pointer-events:none;z-index:8`;
+      scene.appendChild(p);
+      p.animate(
+        [
+          { transform: 'translate3d(0,0,0) rotate(0deg)', opacity: 1 },
+          { transform: `translate3d(${(Math.random() - .5) * 280}px,110vh,0) rotate(${Math.random() * 900}deg)`, opacity: 0 }
+        ],
+        { duration: 2900 + Math.random() * 2700, delay: Math.random() * 850, easing: 'ease-in' }
+      ).onfinish = () => p.remove();
+    }
+  }
+
+  setTimeout(confetti, 900);
+  const cake = document.querySelector('.cake');
+  cake.addEventListener('click', confetti);
+  cake.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); confetti(); }
+  });
+})();
+</script>
+</body>
+</html>
